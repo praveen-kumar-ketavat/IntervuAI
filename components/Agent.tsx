@@ -9,7 +9,6 @@ import { cn } from "@/lib/utils";
 // import { interviewer } from "@/constants";
 // import { createFeedback } from "@/lib/actions/general.action";
 
-
 // interface SavedMessage {
 //   role: "user" | "system" | "assistant";
 //   content: string;
@@ -31,14 +30,17 @@ const Agent = ({
 // questions,
 AgentProps) => {
   // const router = useRouter();
-  // const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
+  const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
   // const [messages, setMessages] = useState<SavedMessage[]>([]);
   // const [isSpeaking, setIsSpeaking] = useState(false);
   // const [lastMessage, setLastMessage] = useState<string>("");
   const isSpeaking = true;
-  const callStatus = CallStatus.INACTIVE;
-  const messages = ['Whats your name?', 'My name is Praveen, nice to meet you!'];
-  const lastMessage = messages[messages.length-1];
+  // const callStatus = CallStatus.FINISHED;
+  const messages = [
+    "Whats your name?",
+    "My name is Praveen, nice to meet you!",
+  ];
+  const lastMessage = messages[messages.length - 1];
 
   //   useEffect(() => {
   //     const onCallStart = () => {
@@ -201,7 +203,9 @@ AgentProps) => {
 
       <div className="w-full flex justify-center">
         {callStatus !== "ACTIVE" ? (
-          <button className="relative btn-call" /*onClick={() => handleCall()}*/>
+          <button
+            className="relative btn-call" /*onClick={() => handleCall()}*/
+          >
             <span
               className={cn(
                 "absolute animate-ping rounded-full opacity-75",
@@ -216,7 +220,9 @@ AgentProps) => {
             </span>
           </button>
         ) : (
-          <button className="btn-disconnect" /*onClick={() => handleDisconnect()}*/>
+          <button
+            className="btn-disconnect" /*onClick={() => handleDisconnect()}*/
+          >
             End
           </button>
         )}
