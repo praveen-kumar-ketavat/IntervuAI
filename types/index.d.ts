@@ -13,6 +13,21 @@ interface Feedback {
   createdAt: string;
 }
 
+const feedbackData: Omit<Feedback, "id" | "createdAt"> = {
+  interviewId,
+  userId,
+  totalScore: parsed.totalScore,
+  categoryScores: parsed.categoryScores,
+  strengths: Array.isArray(parsed.strengths)
+    ? parsed.strengths
+    : [parsed.strengths],
+  areasForImprovement: Array.isArray(parsed.areasForImprovement)
+    ? parsed.areasForImprovement
+    : [parsed.areasForImprovement],
+  finalAssessment: parsed.finalAssessment,
+};
+
+
 interface Interview {
   id: string;
   role: string;
