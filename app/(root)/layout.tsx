@@ -3,19 +3,47 @@ import Image from "next/image";
 import { ReactNode } from "react";
 import { redirect } from "next/navigation";
 
-import { isAuthenticated } from "@/lib/actions/auth.action";
+import { getCurrentUser, isAuthenticated } from "@/lib/actions/auth.action";
+import SignOutButton from "@/components/SignOutButton";
 
 const Layout = async ({ children }: { children: ReactNode }) => {
   const isUserAuthenticated = await isAuthenticated();
   if (!isUserAuthenticated) redirect("/sign-in");
 
+  const user = await getCurrentUser();
+
   return (
     <div className="root-layout">
-      <nav>
+      <nav className="flex items-center justify-between px-6 py-2 border-b border-white/10">
         <Link href="/" className="flex items-center gap-2">
           <Image src="/logo.svg" alt="MockMate Logo" width={38} height={32} />
           <h2 className="text-primary-100">IntervuAI</h2>
         </Link>
+        <div className="flex items-center gap-4">
+          <div className="relative group">
+            <span className="text-sm text-white/90 cursor-default">
+              Welcome, <span className="text-lg">{user?.name}</span>
+            </span>
+
+            {/* Tooltip */}
+            <div
+              className="
+        absolute right-0 mt-2 w-56
+        rounded-md border border-white/10
+        bg-black/90 px-4 py-2 text-sm
+        opacity-0 invisible
+        group-hover:opacity-100 group-hover:visible
+        transition-all duration-200
+        z-50
+      "
+            >
+              <p className="text-white font-medium">{user?.name}</p>
+              <p className="text-white/80 text-xs">{user?.email}</p>
+            </div>
+          </div>
+
+          <SignOutButton />
+        </div>
       </nav>
 
       {children}

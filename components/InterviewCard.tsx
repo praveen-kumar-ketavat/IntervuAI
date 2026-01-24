@@ -38,7 +38,7 @@ const InterviewCard = async ({
   ).format("MMM D, YYYY");
 
   return (
-    <div className="card-border w-[360px] max-sm:w-full min-h-96">
+    <div className="card-border w-[360px] max-sm:w-full min-h-85">
       <div className="card-interview">
         <div>
           {/* Type Badge */}
@@ -51,13 +51,13 @@ const InterviewCard = async ({
             <p className="badge-text ">{normalizedType}</p>
           </div>
           {/* Cover Image */}
-          <Image
+          {/* <Image
             src={getRandomInterviewCover()}
             alt="cover-image"
             width={90}
             height={90}
             className="rounded-full object-fit size-[90px]"
-          />
+          /> */}
           {/* Interview Role */}
           <h3 className="mt-5 capitalize">{role} Interview</h3>
           {/* Date & Score */}
