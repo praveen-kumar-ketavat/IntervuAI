@@ -48,7 +48,7 @@ export async function POST(request: Request) {
         success: false,
         message: "AI service temporarily unavailable. Please try again later.",
       },
-      { status: 503 }
+      { status: 503 },
     );
   }
 }

@@ -9,7 +9,7 @@ import DisplayTechIcons from "./DisplayTechIcons";
 import { getFeedbackByInterviewId } from "@/lib/actions/general.action";
 
 const InterviewCard = async ({
-  id,
+  interviewId,
   userId,
   role,
   type,
@@ -17,9 +17,9 @@ const InterviewCard = async ({
   createdAt,
 }: InterviewCardProps) => {
   const feedback =
-    userId && id
+    userId && interviewId
       ? await getFeedbackByInterviewId({
-          interviewId : id,
+          interviewId,
           userId,
         })
       : null;
@@ -34,7 +34,7 @@ const InterviewCard = async ({
     }[normalizedType] || "bg-light-600";
 
   const formattedDate = dayjs(
-    feedback?.createdAt || createdAt || Date.now()
+    feedback?.createdAt || createdAt || Date.now(),
   ).format("MMM D, YYYY");
 
   return (
@@ -45,12 +45,11 @@ const InterviewCard = async ({
           <div
             className={cn(
               "absolute top-0 right-0 w-fit px-4 py-2 rounded-bl-lg",
-              badgeColor
+              badgeColor,
             )}
           >
             <p className="badge-text ">{normalizedType}</p>
           </div>
-
           {/* Cover Image */}
           <Image
             src={getRandomInterviewCover()}
@@ -59,10 +58,8 @@ const InterviewCard = async ({
             height={90}
             className="rounded-full object-fit size-[90px]"
           />
-
-          Interview Role
+          {/* Interview Role */}
           <h3 className="mt-5 capitalize">{role} Interview</h3>
-
           {/* Date & Score */}
           <div className="flex flex-row gap-5 mt-3">
             <div className="flex flex-row gap-2">
@@ -80,7 +77,6 @@ const InterviewCard = async ({
               <p>{feedback?.totalScore || "---"}/100</p>
             </div>
           </div>
-
           {/* Feedback or Placeholder Text */}
           <p className="line-clamp-2 mt-5">
             {feedback?.finalAssessment ||
@@ -95,8 +91,8 @@ const InterviewCard = async ({
             <Link
               href={
                 feedback
-                  ? `/interview/${id}/feedback`
-                  : `/interview/${id}`
+                  ? `/interview/${interviewId}/feedback`
+                  : `/interview/${interviewId}`
               }
             >
               {feedback ? "Check Feedback" : "View Interview"}

@@ -11,16 +11,16 @@ import {
   getLatestInterviews,
 } from "@/lib/actions/general.action";
 
-const page = async () => {
+async function Home() {
   const user = await getCurrentUser();
 
-  const [userInterviews, latestInterviews] = await Promise.all([
+  const [userInterviews, allInterview] = await Promise.all([
     getInterviewsByUserId(user?.id!),
     getLatestInterviews({ userId: user?.id! }),
   ]);
 
   const hasPastInterviews = userInterviews?.length! > 0;
-  const hasUpcomingInterviews = latestInterviews?.length! > 0;
+  const hasUpcomingInterviews = allInterview?.length! > 0;
 
   return (
     <>
@@ -51,14 +51,14 @@ const page = async () => {
         <div className="interviews-section">
           {hasPastInterviews ? (
             userInterviews?.map((interview) => (
-              <InterviewCard {...interview}
+              <InterviewCard
                 key={interview.id}
-                // userId={user?.id}
-                // interviewId={interview.id}
-                // role={interview.role}
-                // type={interview.type}
-                // techstack={interview.techstack}
-                // createdAt={interview.createdAt}
+                userId={user?.id}
+                interviewId={interview.id}
+                role={interview.role}
+                type={interview.type}
+                techstack={interview.techstack}
+                createdAt={interview.createdAt}
               />
             ))
           ) : (
@@ -72,15 +72,15 @@ const page = async () => {
 
         <div className="interviews-section">
           {hasUpcomingInterviews ? (
-            latestInterviews?.map((interview) => (
-              <InterviewCard {...interview}
+            allInterview?.map((interview) => (
+              <InterviewCard
                 key={interview.id}
-                // userId={user?.id}
-                // interviewId={interview.id}
-                // role={interview.role}
-                // type={interview.type}
-                // techstack={interview.techstack}
-                // createdAt={interview.createdAt}
+                userId={user?.id}
+                interviewId={interview.id}
+                role={interview.role}
+                type={interview.type}
+                techstack={interview.techstack}
+                createdAt={interview.createdAt}
               />
             ))
           ) : (
@@ -90,6 +90,6 @@ const page = async () => {
       </section>
     </>
   );
-};
+}
 
-export default page;
+export default Home;

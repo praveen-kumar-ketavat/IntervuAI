@@ -27,7 +27,6 @@ const feedbackData: Omit<Feedback, "id" | "createdAt"> = {
   finalAssessment: parsed.finalAssessment,
 };
 
-
 interface Interview {
   id: string;
   role: string;
@@ -54,7 +53,7 @@ interface User {
 }
 
 interface InterviewCardProps {
-  id?: string;
+  interviewId?: string;
   userId?: string;
   role: string;
   type: string;
