@@ -25,7 +25,7 @@ export async function createFeedback(params: CreateFeedbackParams) {
 
     const result = await generateText({
       model: google("gemini-2.0-flash-001"),
-      temperature: 0,
+      temperature: 0.4,
       prompt: `
 You are a strict JSON generator.
 
@@ -35,7 +35,7 @@ Do NOT wrap in backticks.
 
 JSON schema:
 {
-  "totalScore": number,
+  "totalScore": number (0-100),
   "categoryScores": [
     { "name": string, "score": number, "comment": string }
   ],
