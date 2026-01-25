@@ -45,7 +45,7 @@ const Agent = ({
     };
 
     const onMessage = (message: Message) => {
-      if (type === "generate") return; // 🚨 ADD THIS
+      if (type === "generate") return;
 
       if (message.type === "transcript" && message.transcriptType === "final") {
         const newMessage = { role: message.role, content: message.transcript };
@@ -179,7 +179,7 @@ const Agent = ({
         <div className="card-border">
           <div className="card-content">
             <Image
-              src="/user-avatar.png"
+              src="/user-icon.png"
               alt="profile-image"
               width={539}
               height={539}
