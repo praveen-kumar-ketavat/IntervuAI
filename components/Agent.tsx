@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { vapi } from "@/lib/vapi.sdk";
-import { interviewer } from "@/constants";
+// import { interviewer } from "@/constants";
 import { createFeedback } from "@/lib/actions/general.action";
 
 enum CallStatus {
@@ -140,7 +140,7 @@ const Agent = ({
             .join("\n");
         }
 
-        await vapi.start(interviewer, {
+        await vapi.start(process.env.NEXT_PUBLIC_VAPI_INTERVIEWER_ID, {
           variableValues: {
             questions: formattedQuestions,
           },
