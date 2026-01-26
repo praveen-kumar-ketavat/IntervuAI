@@ -27,6 +27,7 @@ const Agent = ({
   interviewId,
   feedbackId,
   type,
+  role,
   questions,
 }: AgentProps) => {
   const router = useRouter();
@@ -84,28 +85,28 @@ const Agent = ({
     };
   }, []);
 
+  const handleGenerateFeedback = async (messages: SavedMessage[]) => {
+    console.log("handleGenerateFeedback");
+
+    const { success, feedbackId: id } = await createFeedback({
+      interviewId: interviewId!,
+      userId: userId!,
+      transcript: messages,
+      // feedbackId,
+    });
+
+    if (success && id) {
+      router.push(`/interview/${interviewId}/feedback`);
+    } else {
+      console.log("Error saving feedback");
+      router.push("/");
+    }
+  };
+
   useEffect(() => {
     if (messages.length > 0) {
       setLastMessage(messages[messages.length - 1].content);
     }
-
-    const handleGenerateFeedback = async (messages: SavedMessage[]) => {
-      console.log("handleGenerateFeedback");
-
-      const { success, feedbackId: id } = await createFeedback({
-        interviewId: interviewId!,
-        userId: userId!,
-        transcript: messages,
-        feedbackId,
-      });
-
-      if (success && id) {
-        router.push(`/interview/${interviewId}/feedback`);
-      } else {
-        console.log("Error saving feedback");
-        router.push("/");
-      }
-    };
 
     if (callStatus === CallStatus.FINISHED) {
       if (type === "generate") {
@@ -142,6 +143,8 @@ const Agent = ({
 
         await vapi.start(process.env.NEXT_PUBLIC_VAPI_INTERVIEWER_ID, {
           variableValues: {
+            username: userName,
+            role: role,
             questions: formattedQuestions,
           },
         });
