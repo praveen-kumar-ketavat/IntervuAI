@@ -4,6 +4,8 @@ import { useTransition } from "react";
 import { signOut } from "@/lib/actions/auth.action";
 import { usePathname } from "next/navigation";
 
+import FullScreenLoader from "./FullScreenLoader";
+
 const SignOutButton = () => {
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
@@ -19,7 +21,7 @@ const SignOutButton = () => {
                  hover:bg-red-500/20 transition
                  disabled:opacity-50"
     >
-      {isPending ? "Signing out..." : "Sign out"}
+      {isPending ? <FullScreenLoader loaderLabel="IntervuAI..." /> : "Sign out"}
     </button>
   );
 };

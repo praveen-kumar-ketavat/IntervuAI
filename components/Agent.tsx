@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { vapi } from "@/lib/vapi.sdk";
 // import { interviewer } from "@/constants";
 import { createFeedback } from "@/lib/actions/general.action";
+import FullScreenLoader from "./FullScreenLoader";
 
 enum CallStatus {
   INACTIVE = "INACTIVE",
@@ -35,6 +36,7 @@ const Agent = ({
   const [messages, setMessages] = useState<SavedMessage[]>([]);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [lastMessage, setLastMessage] = useState<string>("");
+  const [showLoader, setShowLoader] = useState<null | string>(null);
 
   useEffect(() => {
     const onCallStart = () => {
@@ -110,8 +112,10 @@ const Agent = ({
 
     if (callStatus === CallStatus.FINISHED) {
       if (type === "generate") {
+        setShowLoader("Generating interview...");
         router.push("/");
       } else {
+        setShowLoader("Generating feedback...");
         handleGenerateFeedback(messages);
       }
     }
@@ -162,6 +166,7 @@ const Agent = ({
 
   return (
     <>
+      {showLoader && <FullScreenLoader loaderLabel={showLoader} />}
       <div className="call-view">
         {/* AI Interviewer Card */}
         <div className="card-interviewer">

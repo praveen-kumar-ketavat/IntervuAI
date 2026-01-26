@@ -8,6 +8,7 @@ import { auth } from "@/firebase/client";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTransition } from "react";
 
 import {
   createUserWithEmailAndPassword,
@@ -19,6 +20,7 @@ import { Button } from "@/components/ui/button";
 
 import { signIn, signUp } from "@/lib/actions/auth.action";
 import FormField from "./FormField";
+import FullScreenLoader from "./FullScreenLoader";
 const authFormSchema = (type: FormType) => {
   return z.object({
     name: type === "sign-up" ? z.string().min(3) : z.string().optional(),
@@ -29,6 +31,7 @@ const authFormSchema = (type: FormType) => {
 
 const AuthForm = ({ type }: { type: FormType }) => {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
   const formSchema = authFormSchema(type);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -40,7 +43,8 @@ const AuthForm = ({ type }: { type: FormType }) => {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof formSchema>) {
+  startTransition(async () => {
     try {
       if (type === "sign-up") {
         const { name, email, password } = values;
@@ -48,7 +52,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
         const userCredential = await createUserWithEmailAndPassword(
           auth,
           email,
-          password,
+          password
         );
 
         const result = await signUp({
@@ -71,7 +75,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
         const userCredential = await signInWithEmailAndPassword(
           auth,
           email,
-          password,
+          password
         );
 
         const idToken = await userCredential.user.getIdToken();
@@ -89,14 +93,18 @@ const AuthForm = ({ type }: { type: FormType }) => {
         router.push("/");
       }
     } catch (error) {
-      console.log(error);
-      toast.error(`There was an error: ${error}`);
+      console.error(error);
+      toast.error("There was an error. Please try again.");
     }
-  }
+  });
+}
+
 
   const isSignIn = type === "sign-in";
 
   return (
+    <>
+    {isPending && <FullScreenLoader loaderLabel="IntervuAI..." />}
     <div className="card-border lg:min-w-[566px]">
       <div className="flex flex-col gap-6 card py-14 px-10">
         <div className="flex flex-row gap-2 justify-center">
@@ -151,6 +159,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
         </p>
       </div>
     </div>
+    </>
   );
 };
 

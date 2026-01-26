@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 
 import { getCurrentUser, isAuthenticated } from "@/lib/actions/auth.action";
 import SignOutButton from "@/components/SignOutButton";
+import HomeLink from "@/components/HomeLink";
 
 const Layout = async ({ children }: { children: ReactNode }) => {
   const isUserAuthenticated = await isAuthenticated();
@@ -15,10 +16,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
   return (
     <div className="root-layout">
       <nav className="flex items-center justify-between px-6 py-2 border-b border-white/10">
-        <Link href="/" className="flex items-center gap-2">
-          <Image src="/logo.svg" alt="MockMate Logo" width={38} height={32} />
-          <h2 className="text-primary-100">IntervuAI</h2>
-        </Link>
+        <HomeLink />
         <div className="flex items-center gap-4">
           <div className="relative group">
             <span className="text-sm text-white/90 cursor-default">

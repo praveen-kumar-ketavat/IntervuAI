@@ -9,6 +9,7 @@ import {
 } from "@/lib/actions/general.action";
 import { Button } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/actions/auth.action";
+import FeedbackPageButton from "@/components/FeedbackPageButton";
 
 const Feedback = async ({ params }: RouteParams) => {
   const { id } = await params;
@@ -93,24 +94,19 @@ const Feedback = async ({ params }: RouteParams) => {
       </div>
 
       <div className="buttons">
-        <Button className="btn-secondary flex-1">
-          <Link href="/" className="flex w-full justify-center">
-            <p className="text-sm font-semibold text-primary-200 text-center">
-              Back to dashboard
-            </p>
-          </Link>
-        </Button>
+        <FeedbackPageButton
+          href="/"
+          variant="secondary"
+          label="Back to dashboard"
+          loaderLabel="IntervuAI..."
+        />
 
-        <Button className="btn-primary flex-1">
-          <Link
-            href={`/interview/${id}`}
-            className="flex w-full justify-center"
-          >
-            <p className="text-sm font-semibold text-black text-center">
-              Retake Interview
-            </p>
-          </Link>
-        </Button>
+        <FeedbackPageButton
+          href={`/interview/${id}`}
+          variant="primary"
+          label="Retake Interview"
+          loaderLabel="Interview loading..."
+        />
       </div>
     </section>
   );
