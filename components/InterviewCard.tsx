@@ -14,7 +14,6 @@ const InterviewCard = async ({
   userId,
   role,
   type,
-  createdBy,
   techstack,
   createdAt,
 }: InterviewCardProps) => {
@@ -39,15 +38,6 @@ const InterviewCard = async ({
     feedback?.createdAt || createdAt || Date.now(),
   ).format("MMM D, YYYY");
 
-
-  const createdByText = createdBy
-  ? createdBy.id === userId
-    ? "Created by you"
-    : `Created by ${createdBy.name}`
-  : "Created by IntervuAI";
-
-  console.log("createdByText:", createdByText);
-
   return (
     <div className="card-border w-[360px] max-sm:w-full min-h-85">
       <div className="card-interview">
@@ -71,8 +61,6 @@ const InterviewCard = async ({
           /> */}
           {/* Interview Role */}
           <h3 className="mt-5 capitalize">{role} Interview</h3>
-          {/* Created By */}
-          <p className="mt-1 text-sm text-light-400">{createdByText}</p>
           {/* Date & Score */}
           <div className="flex flex-row gap-5 mt-3">
             <div className="flex flex-row gap-2">
