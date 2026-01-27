@@ -52,7 +52,7 @@ const Feedback = async ({ params }: RouteParams) => {
             <p>
               {feedback?.createdAt
                 ? dayjs(feedback.createdAt).format("MMM D, YYYY h:mm A")
-                : "N/A"}
+                : "N/A"} UTC
             </p>
           </div>
         </div>

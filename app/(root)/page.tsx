@@ -11,6 +11,7 @@ import {
   getLatestInterviews,
 } from "@/lib/actions/general.action";
 import StartInterviewButton from "@/components/StartInterviewButton";
+import ClickHereButton from "@/components/ClickHereButton";
 
 async function Home() {
   const user = await getCurrentUser();
@@ -61,7 +62,14 @@ async function Home() {
               />
             ))
           ) : (
-            <p>You haven&apos;t taken any interviews yet</p>
+            // <p>
+            //   You haven&apos;t generated any interviews yet.{" "}
+            //   <ClickHereButton />
+            // </p>
+            <div className="flex items-center gap-1 text-lg text-white/80">
+              <span>You haven&apos;t generated any interviews yet.</span>
+              <ClickHereButton />
+            </div>
           )}
         </div>
       </section>
