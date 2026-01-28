@@ -1,5 +1,7 @@
 import dayjs from "dayjs";
 import Image from "next/image";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 
 import { Button } from "./ui/button";
 
@@ -34,9 +36,13 @@ const InterviewCard = async ({
       Technical: "bg-light-800",
     }[normalizedType] || "bg-light-600";
 
-  const formattedDate = dayjs(
-    feedback?.createdAt || createdAt || Date.now(),
-  ).format("MMM D, YYYY");
+  dayjs.extend(utc);
+  dayjs.extend(timezone);
+
+  const formattedDate = dayjs
+    .utc(feedback?.createdAt || createdAt || Date.now())
+    .tz("Asia/Kolkata")
+    .format("MMM D, YYYY");
 
   return (
     <div className="card-border w-[360px] max-sm:w-full min-h-85">

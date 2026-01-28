@@ -10,6 +10,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/actions/auth.action";
 import FeedbackPageButton from "@/components/FeedbackPageButton";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 
 const Feedback = async ({ params }: RouteParams) => {
   const { id } = await params;
@@ -22,6 +24,9 @@ const Feedback = async ({ params }: RouteParams) => {
     interviewId: id,
     userId: user?.id!,
   });
+
+  dayjs.extend(utc);
+  dayjs.extend(timezone);
 
   return (
     <section className="section-feedback">
@@ -51,8 +56,11 @@ const Feedback = async ({ params }: RouteParams) => {
             <Image src="/calendar.svg" width={22} height={22} alt="calendar" />
             <p>
               {feedback?.createdAt
-                ? dayjs(feedback.createdAt).format("MMM D, YYYY h:mm A")
-                : "N/A"} UTC
+                ? dayjs
+                    .utc(feedback.createdAt)
+                    .tz("Asia/Kolkata")
+                    .format("MMM D, YYYY h:mm A")
+                : "N/A"}
             </p>
           </div>
         </div>
