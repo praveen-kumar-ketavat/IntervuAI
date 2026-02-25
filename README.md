@@ -1,4 +1,4 @@
-# IntervuAI — AI-Powered Interview Practice Platform
+# IntervuAI — AI-Powered Interview Preparation Platform
 
 ## Overview
 
@@ -101,44 +101,6 @@ The IntervuAI system follows a modular architecture consisting of:
 
 ---
 
-## Installation and Setup
-
-### Prerequisites
-
-- Node.js (version 18 or later recommended)  
-- npm / yarn / pnpm / bun  
-- Internet connection  
-- Microphone enabled  
-
-### Clone the Repository
-
-git clone https://github.com/your-username/intervuai.git  
-cd intervuai  
-
-### Install Dependencies
-
-npm install  
-
-### Run the Development Server
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open http://localhost:3000 in your browser to see the application.
-
-You can start editing the page by modifying app/page.tsx. The page auto-updates as you edit the file.
-
-This project uses Next.js font optimization to load the Geist font.
-
----
-
 ## Application Workflow
 
 ### Step-by-Step Flow of Using the Application
@@ -225,19 +187,6 @@ IntervuAI can be used for:
 
 ---
 
-## Testing
-
-The system has been validated using multiple testing approaches:
-
-- Unit Testing for individual modules  
-- Integration Testing for module interaction  
-- System Testing for end-to-end workflow  
-- User Acceptance Testing for usability and effectiveness  
-
-All major functionalities performed as expected under real-world conditions.
-
----
-
 ## Future Enhancements
 
 - Multi-language support  
@@ -247,12 +196,6 @@ All major functionalities performed as expected under real-world conditions.
 - Industry-specific interview modules  
 - Mobile application support  
 - Group interview simulation  
-
----
-
-## Conclusion
-
-IntervuAI provides a comprehensive AI-driven solution for interview preparation by combining conversational AI, voice interaction, automated evaluation, and structured feedback. The platform offers an accessible, scalable, and effective way for users to improve interview performance and job readiness.
 
 ---
 
