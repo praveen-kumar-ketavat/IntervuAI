@@ -102,7 +102,7 @@ export async function createFeedback(params: CreateFeedbackParams) {
       .join("\n");
 
     const result = await generateText({
-      model: google("gemini-2.0-flash-001"),
+      model: google("gemini-2.5-flash"),
       temperature: 0.3,
       prompt: `
 You are a professional interview evaluator.
